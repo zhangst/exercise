@@ -1,4 +1,4 @@
-.phony:all clean
+.phony:all clean balance_symbol
 
 all:test balance_symbol
 
