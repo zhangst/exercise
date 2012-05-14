@@ -75,7 +75,7 @@ void list_delete(struct list *head, int element)
 	struct list *pre = NULL, *tmp = NULL;
 	assert(NULL != head);
 
-	for (pre = head; pre != NULL && NULL != pre->next; pre = pre->next) {
+	for (pre = head; NULL != pre && NULL != pre->next; pre = pre->next) {
 		if (pre->next->element == element) {
 			tmp = pre->next;
 			pre->next = tmp->next;
