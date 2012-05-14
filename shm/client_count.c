@@ -28,7 +28,7 @@
 
 struct cc_count {
 	int node_num;
-	char data[1];		/* 为什么是char数组，为什么不是int？？ */
+	char data[1];
 };
 
 struct cc_count_node {
