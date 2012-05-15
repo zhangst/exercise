@@ -135,6 +135,39 @@ struct list *list_rollback(struct list *L)
 	return L;
 }
 
+/**
+ * H-1-3-5-6-nil  隔行元素互换位置，如1,5;3,6;直到遇到nil
+ */
+struct list *list_rollforward(struct list *L)
+{
+	assert(NULL != L);
+
+	if (L->next == NULL ||
+		L->next->next == NULL ||
+		L->next->next->next == NULL)
+		return L;
+	
+	struct list *l0, *l1, *l2, *l3;
+	l0 = L;
+	l1 = l0->next;
+	l2 = l1->next;
+	l3 = l2->next;
+
+	while (NULL != l3) {
+		l1->next = l3->next;
+		l2->next = l1;
+		l3->next = l2;
+		l0->next = l3;
+
+		l3 = l1->next;
+		l1 = l2;
+		l2 = l2->next;
+		l0 = l0->next;
+	}
+
+	return L;
+}
+
 void list_dump(struct list *head)
 {
 	assert(NULL != head);

@@ -14,5 +14,6 @@ void list_dump(struct list *head);
 
 /* 非标准接口 */
 struct list *list_rollback(struct list *L);
+struct list *list_rollforward(struct list *L);
 
 #endif
