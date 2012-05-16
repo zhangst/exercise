@@ -47,6 +47,67 @@ static void *z_memcpy(void *dst, const void *src, size_t n)
 	return dst;
 }
 
+/**
+ * memccpy
+ * memmove
+ */
+static void *z_memccpy(void *dst, const void *src, int c, size_t n)
+{
+	size_t i = 0;
+	int c_found = 0;		/* 0未发现  1发现 */
+	assert(NULL != dst && NULL != src);
+
+	while (i < n) {
+		if ((*((char *)dst + i) = *((char *)src + i)) == c) {
+			c_found = 1;
+			break;
+		}
+		i++;
+	}
+
+	return (c_found == 1)?(void *)((char *)dst + i + 1):NULL;
+}
+/* glibc */
+static void *__memccpy(void *dst, const void *src, int c, size_t n)
+{
+	register const char *s = src;
+	register char *d = dst;
+	register const char x = c;
+	register size_t i = n;
+
+	while (i-- > 0) {
+		if ((*d++ = *s++) == x)
+			return d;
+	}
+
+	return NULL;
+}
+static void *z_memmove(void *dst, const void *src, size_t n)
+{
+	char *d = NULL;
+	const char *s = NULL;
+	int op = 0;
+	size_t i = n;
+
+	if (dst < src) {
+		d = dst;
+		s = src;
+		op = 1;
+	} else {
+		d = dst + n - 1;
+		s = src + n - 1;
+		op = -1;
+	}
+
+	while (i-- > 0) {
+		*d = *s;
+		d += op;
+		s += op;
+	}
+
+	return dst;
+}
+
 
 /**
  * strcmp
@@ -68,18 +129,18 @@ static int z_strcmp(const char *s1, const char *s2)
  */
 static int z_strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t i = 0;
-	assert(s1 != NULL && s2 != NULL);
+        size_t i = 0;
+        assert(s1 != NULL && s2 != NULL);
 
-	while (i < n && *s1 == *s2 && *s1 != '\0') {
-		i++;
-		s1++;
-		s2++;
-	}
+        while (*s1 == *s2 && *s1 != '\0') {
+                if (++i == n)
+			break;
+                s1++;
+                s2++;
+        }
 
-	return *s1 - *s2;
+        return *s1 - *s2;
 }
-
 
 /**
  * strcat
