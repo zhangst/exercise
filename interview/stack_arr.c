@@ -28,6 +28,7 @@ struct stack *stack_create(int max_elements)
 	if (NULL == tmp->arr) {
 		fprintf(stderr, "%s:%d malloc error.\n",
 			__func__, __LINE__);
+                free(tmp);
 		return NULL;
 	}
 	tmp->top_index = EMPTY_INDEX;
@@ -48,7 +49,7 @@ int stack_isempty(struct stack *s)
 {
 	assert(NULL != s);
 	
-	return s->top_index == EMTPY_INDEX;
+	return s->top_index == EMPTY_INDEX;
 }
 
 int stack_isfull(struct stack *s)
@@ -67,7 +68,7 @@ void stack_push(struct stack *s, int element)
 
 void stack_pop(struct stack *s)
 {
-	assert(!stack_isemtpy(s));
+	assert(!stack_isempty(s));
 
 	--s->top_index;
 }
