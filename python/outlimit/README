@@ -1,0 +1,18 @@
+
+1、outlimit_client.py
+        ./outlimit_client.py 直接执行抓取昨天的日志
+        ./outlimit_client.py "2012-10-31" 抓取指定日志的日志
+
+2、outlimit_server.py
+        安装python mysql支持
+                   setuptools-0.6c11.tar.gz  : python setup.py install
+                   MySQL-python-1.2.3.tar.gz : python setup.py install
+        是cli程序，后台执行使用nohup: nohup ./outlimit_server.py &
+
+3、outlimit_server.sql
+        存储信息使用的sql
+
+
+注意：
+        1、配置后需要修改SQL用户密码、IP端口等信息。
+        2、日期+机器名+账号名是唯一的
