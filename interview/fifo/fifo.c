@@ -75,12 +75,20 @@ void fifo_push(struct fifo * f, int element) {
 int fifo_pop(struct fifo * f) {
     assert(!fifo_isempty(f));
 
+    int e_ret = 0;
     if (stack_isempty(f->s[1])) {
         while (!stack_isempty(f->s[0])) {
             int e = stack_topandpop(f->s[0]);
-            stack_push(f->s[1], e);
+            if (stack_isempty(f->s[0])) {
+                e_ret = e;
+            } else {
+                stack_push(f->s[1], e);
+            }
         }
+    } else {
+        e_ret = stack_topandpop(f->s[1]);
     }
+    
     f->size -= 1;
-    return stack_topandpop(f->s[1]);
+    return e_ret;
 }
