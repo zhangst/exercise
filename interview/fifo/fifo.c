@@ -10,7 +10,7 @@
 struct fifo {
     int capacity;
     int size;
-    struct stack *s[2];
+    struct stack * s[2];
 };
 
 struct fifo * fifo_create(int max_elements) {
