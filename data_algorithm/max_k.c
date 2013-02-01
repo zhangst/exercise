@@ -46,7 +46,8 @@ int max_k_1(int * arr, size_t arr_size, size_t k) {
 }
 
 /**
- * 创建大小为K的数组，拷贝arr的前K个数，排序;逐个读取剩余元素，将K数组中不合的元素挤出
+ * 创建大小为K+1的数组，拷贝arr的前K个数，排序;逐个读取剩余元素，将K数组中不合的元素挤出
+ * 创建K+1的临时数组简化逻辑
  */
 int max_k_2(int * arr, size_t arr_size, size_t k) {
     int * arr_k = malloc(sizeof(int) * (k+1));
